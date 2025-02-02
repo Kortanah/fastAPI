@@ -14,11 +14,21 @@
 #     return {"item_id": item_id, "q": q}
 
 from fastapi import FastAPI, UploadFile, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+
 from PIL import Image
 import torch
 import io
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Load the YOLOv5 model (adjust model path if necessary)
 model = torch.hub.load('./yolov5', 'custom', path='./model/best.pt', source='local',device='cpu')
