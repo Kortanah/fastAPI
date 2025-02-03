@@ -5,7 +5,6 @@ from PIL import Image
 import torch
 import io
 import os
-import uuid
 
 # Directory for YOLO output
 YOLO_OUTPUT_DIR = "./runs/detect"
@@ -21,8 +20,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Mount static files to serve YOLO detection images
+app.mount("/runs", StaticFiles(directory="runs"), name="runs")
+
 # Load the YOLOv5 model
-model = torch.hub.load('./yolov5', 'custom', path='./model/best.pt', source='local', device='cpu')
+model = torch.hub.load('ultralytics/yolov5', 'custom', path='./model/best.pt', source='local', device='cpu')
 
 
 @app.get("/")
@@ -51,8 +53,12 @@ async def analyze_pothole(file: UploadFile):
     )
     latest_exp_path = os.path.join(YOLO_OUTPUT_DIR, exp_folders[-1])
 
-    # Assume the labeled image is named "image.jpg"
-    labeled_image_path = os.path.join(latest_exp_path, "image.jpg")
+    # Assume the labeled image is named "image0.jpg"
+    labeled_image_name = "image0.jpg"
+    labeled_image_path = os.path.join(latest_exp_path, labeled_image_name)
+
+    if not os.path.exists(labeled_image_path):
+        raise HTTPException(status_code=404, detail="Labeled image not found.")
 
     # Analyze detection results
     num_detections = results.xyxy[0].shape[0]
@@ -61,5 +67,5 @@ async def analyze_pothole(file: UploadFile):
     return {
         "severity": severity,
         "num_potholes_detected": num_detections,
-        "labeled_image_url": f"/{labeled_image_path.replace('./', '')}"
+        "labeled_image_url": f"/runs/detect/{exp_folders[-1]}/{labeled_image_name}"
     }
