@@ -23,13 +23,13 @@ app.add_middleware(
 # Mount static files to serve YOLO detection images
 app.mount("/runs", StaticFiles(directory="runs"), name="runs")
 
-yolov5_path = os.path.abspath("./yolov5")
+# yolov5_path = os.path.abspath("./yolov5")
 model_path = os.path.abspath("./model/best.pt")
 
-# Load model
+# # Load model
 
-# Load the YOLOv5 model
-model = torch.hub.load(yolov5_path, 'custom', path=model_path, source='local', device='cpu')
+# # Load the YOLOv5 model
+model = torch.hub.load("ultralytics/yolov5", 'custom', path=model_path, source='local', device='cpu')
 
 # Load the YOLOv5 model
 #model = torch.hub.load('./yolov5', 'custom', path='./model/best.pt', source='local', device='cpu')
