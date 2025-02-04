@@ -1,8 +1,8 @@
 fastapi[all]
 
 opencv-python-headless
-torch 
-torchvision 
+#torch 
+#torchvision 
 torchaudio
 
 # YOLOv5 requirements
