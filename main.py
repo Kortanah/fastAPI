@@ -29,7 +29,7 @@ model_path = os.path.abspath("./model/best.pt")
 # # Load model
 
 # # Load the YOLOv5 model
-model = torch.hub.load("ultralytics/yolov5", 'custom', path=model_path, source='local', device='cpu')
+model = torch.hub.load("./yolov5", 'custom', path=model_path, source='local', device='cpu')
 
 # Load the YOLOv5 model
 #model = torch.hub.load('./yolov5', 'custom', path='./model/best.pt', source='local', device='cpu')
