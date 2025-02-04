@@ -35,7 +35,7 @@ app.mount("/runs", StaticFiles(directory="runs"), name="runs")
 # model = torch.hub.load(YOLO_DIR, 'custom', path=MODEL_PATH, device='cpu')
 
 # # Load the YOLOv5 model
-model = torch.hub.load('.', 'custom', path='./model/best.pt', source='local', device='cpu')
+model = torch.hub.load('./yolov5', 'custom', path='./model/best.pt', source='github', device='cpu')
 
 # Load the YOLOv5 model
 #model = torch.hub.load('./yolov5', 'custom', path='./model/best.pt', source='local', device='cpu')
