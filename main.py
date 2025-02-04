@@ -26,16 +26,16 @@ app.mount("/runs", StaticFiles(directory="runs"), name="runs")
 # yolov5_path = os.path.abspath("./yolov5")
 
 # Get the directory of the current file
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Dynamic paths to the YOLOv5 directory and model file
-YOLO_DIR = os.path.join(BASE_DIR, "yolov5")
-MODEL_PATH = os.path.join(BASE_DIR, "best.pt")
+# YOLO_DIR = os.path.join(BASE_DIR, "yolov5")
+# MODEL_PATH = os.path.join(BASE_DIR, "best.pt")
 
-model = torch.hub.load(YOLO_DIR, 'custom', path=MODEL_PATH, device='cpu')
+# model = torch.hub.load(YOLO_DIR, 'custom', path=MODEL_PATH, device='cpu')
 
 # # Load the YOLOv5 model
-# model = torch.hub.load("./yolov5", 'custom', path=model_path, source='local', device='cpu')
+model = torch.hub.load('.', 'custom', path='./model/best.pt', source='local', device='cpu')
 
 # Load the YOLOv5 model
 #model = torch.hub.load('./yolov5', 'custom', path='./model/best.pt', source='local', device='cpu')
